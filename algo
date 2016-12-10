@@ -45,6 +45,12 @@ security_enabled=${security_enabled:-n}
 if [[ "$security_enabled" =~ ^(y|Y)$ ]]; then ROLES+=" security"; fi
 
 read -p "
+Do you want to enable VPN always when connected to the ethernet network?
+[y/N]: " -r OnDemandEnabled_Ethernet
+OnDemandEnabled_Ethernet=${OnDemandEnabled_Ethernet:-n}
+if [[ "$OnDemandEnabled_Ethernet" =~ ^(y|Y)$ ]]; then EXTRA_VARS+=" OnDemandEnabled_Ethernet=Y"; fi
+
+read -p "
 Do you want the VPN to support Windows 10 clients? (requires RSA certificates and key exchange, less secure)
 [y/N]: " -r Win10_Enabled
 Win10_Enabled=${Win10_Enabled:-n}
