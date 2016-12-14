@@ -12,8 +12,24 @@
                 <integer>1</integer>
               <key>OnDemandRules</key>
               <array>
-{% if OnDemandEnabled_WIFI_EXCLUDE is defined and OnDemandEnabled_WIFI_EXCLUDE != '_null' %}
-{% set WIFI_EXCLUDE_LIST = OnDemandEnabled_WIFI_EXCLUDE.split(',') %}
+{% if OnDemandEnabled_Cellular is not defined or OnDemandEnabled_Cellular != 'Y' %}
+                  <dict>
+                    <key>Action</key>
+                      <string>Disconnect</string>
+                    <key>InterfaceTypeMatch</key>
+                      <string>Cellular</string>
+                  </dict>
+{% endif %}
+{% if OnDemandEnabled_Ethernet is not defined or OnDemandEnabled_Ethernet != 'Y' %}
+                  <dict>
+                    <key>Action</key>
+                      <string>Disconnect</string>
+                    <key>InterfaceTypeMatch</key>
+                      <string>Ethernet</string>
+                  </dict>
+{% endif %}
+{% if OnDemandEnabled_WIFI_ECXLUDE is defined and OnDemandEnabled_WIFI_ECXLUDE != '_null' %}
+{% set WIFI_EXCLUDE_LIST = OnDemandEnabled_WIFI_ECXLUDE.split(',') %}
                   <dict>
                       <key>Action</key>
                       <string>Disconnect</string>
@@ -28,36 +44,30 @@
                   </dict>
 {% else %}
 {% endif %}
-                  <dict>
-                    <key>Action</key>
-{% if OnDemandEnabled_WIFI is defined and OnDemandEnabled_WIFI == 'Y' %}
-                      <string>Connect</string>
-  {% else %}
-                      <string>Disconnect</string>
-{% endif %}
-                    <key>InterfaceTypeMatch</key>
-                      <string>WiFi</string>
-                  </dict>
-                  <dict>
-                    <key>Action</key>
 {% if OnDemandEnabled_Cellular is defined and OnDemandEnabled_Cellular == 'Y' %}
+                  <dict>
+                    <key>Action</key>
                       <string>Connect</string>
-  {% else %}
-                      <string>Disconnect</string>
-{% endif %}
                     <key>InterfaceTypeMatch</key>
                       <string>Cellular</string>
                   </dict>
+{% endif %}
+{% if OnDemandEnabled_Ethernet is defined and OnDemandEnabled_Ethernet == 'Y' %}
                   <dict>
                     <key>Action</key>
-{% if OnDemandEnabled_Ethernet is defined and OnDemandEnabled_Ethernet == 'Y' %}
                       <string>Connect</string>
-  {% else %}
-                      <string>Disconnect</string>
-{% endif %}
                     <key>InterfaceTypeMatch</key>
                       <string>Ethernet</string>
                   </dict>
+{% endif %}
+{% if OnDemandEnabled_WIFI is defined and OnDemandEnabled_WIFI == 'Y' %}
+                  <dict>
+                    <key>Action</key>
+                      <string>Connect</string>
+                    <key>InterfaceTypeMatch</key>
+                      <string>WiFi</string>
+                  </dict>
+{% endif %}
                 </array>
 {% else %}
 {% endif %}
@@ -106,7 +116,7 @@
                 <string>ECDSA256</string>
 {% endif %}
                 <key>ServerCertificateIssuerCommonName</key>
-                <string>{{ IP_subject_alt_name }}</string>                
+                <string>{{ IP_subject_alt_name }}</string>
                 <key>RemoteAddress</key>
                 <string>{{ IP_subject_alt_name }}</string>
                 <key>RemoteIdentifier</key>

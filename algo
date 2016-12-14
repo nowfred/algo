@@ -27,6 +27,12 @@ Do you want to exclude trusted Wi-Fi networks from using the VPN? (e.g., your ho
 fi
 
 read -p "
+Do you want to enable VPN always when connected to the ethernet network?
+[y/N]: " -r OnDemandEnabled_Ethernet
+OnDemandEnabled_Ethernet=${OnDemandEnabled_Ethernet:-n}
+if [[ "$OnDemandEnabled_Ethernet" =~ ^(y|Y)$ ]]; then EXTRA_VARS+=" OnDemandEnabled_Ethernet=Y"; fi
+
+read -p "
 Do you want to install a local DNS resolver to block ads while surfing?
 [y/N]: " -r dns_enabled
 dns_enabled=${dns_enabled:-n}
@@ -43,12 +49,6 @@ Do you want to apply operating system security enhancements on the server?
 [y/N]: " -r security_enabled
 security_enabled=${security_enabled:-n}
 if [[ "$security_enabled" =~ ^(y|Y)$ ]]; then ROLES+=" security"; fi
-
-read -p "
-Do you want to enable VPN always when connected to the ethernet network?
-[y/N]: " -r OnDemandEnabled_Ethernet
-OnDemandEnabled_Ethernet=${OnDemandEnabled_Ethernet:-n}
-if [[ "$OnDemandEnabled_Ethernet" =~ ^(y|Y)$ ]]; then EXTRA_VARS+=" OnDemandEnabled_Ethernet=Y"; fi
 
 read -p "
 Do you want the VPN to support Windows 10 clients? (requires RSA certificates and key exchange, less secure)
