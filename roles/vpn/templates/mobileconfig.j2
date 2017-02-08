@@ -20,16 +20,8 @@
                       <string>Cellular</string>
                   </dict>
 {% endif %}
-{% if OnDemandEnabled_Ethernet is not defined or OnDemandEnabled_Ethernet != 'Y' %}
-                  <dict>
-                    <key>Action</key>
-                      <string>Disconnect</string>
-                    <key>InterfaceTypeMatch</key>
-                      <string>Ethernet</string>
-                  </dict>
-{% endif %}
-{% if OnDemandEnabled_WIFI_ECXLUDE is defined and OnDemandEnabled_WIFI_ECXLUDE != '_null' %}
-{% set WIFI_EXCLUDE_LIST = OnDemandEnabled_WIFI_ECXLUDE.split(',') %}
+{% if OnDemandEnabled_WIFI_EXCLUDE is defined and OnDemandEnabled_WIFI_EXCLUDE != '_null' %}
+{% set WIFI_EXCLUDE_LIST = OnDemandEnabled_WIFI_EXCLUDE.split(',') %}
                   <dict>
                       <key>Action</key>
                       <string>Disconnect</string>
@@ -66,6 +58,14 @@
                       <string>Connect</string>
                     <key>InterfaceTypeMatch</key>
                       <string>WiFi</string>
+                  </dict>
+{% endif %}
+{% if OnDemandEnabled_Ethernet is not defined or OnDemandEnabled_Ethernet != 'Y' %}
+                  <dict>
+                    <key>Action</key>
+                      <string>Disconnect</string>
+                    <key>InterfaceTypeMatch</key>
+                      <string>Ethernet</string>
                   </dict>
 {% endif %}
                 </array>
